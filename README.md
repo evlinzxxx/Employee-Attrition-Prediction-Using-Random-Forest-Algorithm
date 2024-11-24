@@ -13,6 +13,15 @@ Jaya Jaya Maju adalah perusahaan besar dengan lebih dari 1.000 karyawan yang ter
 3. Memberikan rekomendasi strategis berdasarkan analisis data untuk meningkatkan kinerja dan kesejahteraan karyawan.
 
 ---
+## Persiapan
+### Sumber data: https://github.com/dicodingacademy/dicoding_dataset/tree/main/employee
+
+### Setup Environment - Metabase:
+1. docker pull metabase/metabase:v0.46.4
+2. docker run -p 3000:3000 --name metabase metabase/metabase
+3. http://localhost:3000/setup
+
+email : evelinsitanggang@gmail.com pass : Batudewa22_
 
 ## Business Dashboard
 
