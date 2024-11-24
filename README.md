@@ -1,5 +1,7 @@
 # Submission Pertama: Analisis Data Karyawan
 
+by : Evlin Sitanggang
+
 ## Business Understanding
 
 Jaya Jaya Maju adalah perusahaan besar dengan lebih dari 1.000 karyawan yang tersebar di berbagai divisi. Untuk mendukung pengambilan keputusan strategis, tim HR membutuhkan dashboard yang memberikan wawasan mendalam tentang profil dan distribusi karyawan di perusahaan. Informasi ini diharapkan membantu perusahaan mengidentifikasi peluang peningkatan produktivitas dan kesejahteraan karyawan.
