@@ -1,33 +1,78 @@
-# Submission Kedua: Analisis Data Karyawan
+## **Proyek Akhir: Analisis Data Karyawan**
 
 by: Evlin Sitanggang
 
-## Business Understanding
+---
 
-Jaya Jaya Maju adalah perusahaan besar dengan lebih dari 1.000 karyawan di berbagai divisi. Dashboard ini dirancang untuk membantu tim HR memahami kondisi tenaga kerja di perusahaan, menganalisis area yang memerlukan perhatian khusus, serta mendukung pengambilan keputusan strategis. Tujuannya adalah untuk meningkatkan kesejahteraan karyawan sekaligus memastikan kinerja optimal organisasi.
+### **Business Understanding**
 
-### Permasalahan Bisnis
+**Latar Belakang Bisnis**  
+Jaya Jaya Maju adalah perusahaan besar dengan lebih dari 1.000 karyawan di berbagai divisi. Perusahaan ini ingin memahami kondisi tenaga kerja untuk meningkatkan kesejahteraan karyawan sekaligus mempertahankan performa operasional yang optimal.  
 
-Perusahaan Jaya Jaya Maju menghadapi tantangan besar dengan tingkat attrition yang tinggi, yang kini melebihi 10%. Hal ini berisiko mengganggu kelancaran operasional serta meningkatkan beban biaya dalam proses rekrutmen dan pelatihan karyawan baru. Untuk mengatasi masalah tersebut, manajer HR perlu memperoleh wawasan mendalam mengenai faktor-faktor yang mempengaruhi keputusan karyawan untuk bertahan atau meninggalkan perusahaan.
+**Permasalahan Bisnis**  
+1. Tingkat attrition yang tinggi (lebih dari 10%) menimbulkan tantangan dalam operasional dan meningkatkan biaya rekrutmen.  
+2. Manajer HR memerlukan wawasan mendalam terkait faktor-faktor yang memengaruhi turnover karyawan.  
 
-
-### Tujuan Proyek
-
-1. Memberikan insight mendalam terkait profil dan distribusi karyawan di perusahaan.
-2. Mengidentifikasi area yang memerlukan perbaikan dalam kesejahteraan dan kinerja karyawan.
-3. Menyediakan rekomendasi strategis berdasarkan data untuk mengatasi masalah yang ada.
+**Tujuan Proyek**  
+1. Memberikan insight terkait profil dan distribusi karyawan.  
+2. Mengidentifikasi area kritis untuk meningkatkan kesejahteraan karyawan.  
+3. Memberikan rekomendasi strategis berbasis data untuk mengurangi turnover.  
 
 ---
-## Persiapan
-### Sumber data: https://github.com/dicodingacademy/dicoding_dataset/tree/main/employee
 
-### Setup Environment - Metabase:
-1. docker pull metabase/metabase:v0.46.4
-2. docker run -p 3000:3000 --name metabase metabase/metabase
-3. http://localhost:3000/setup
+### **Cakupan Proyek**
 
-email : evelinsitanggang@gmail.com pass : Batudewa22_
+- Analisis data terkait profil karyawan, distribusi, dan kepuasan kerja.  
+- Identifikasi pola yang memengaruhi turnover karyawan.  
+- Pengembangan business dashboard sebagai alat bantu visualisasi data.  
 
+---
+
+## Persiapan  
+### **Sumber data**  
+https://github.com/dicodingacademy/dicoding_dataset/tree/main/employee  
+
+### **Setup Environment**  
+
+1. **Install Docker (Jika Belum Terpasang)**  
+   - Unduh dan instal Docker sesuai dengan sistem operasi:  
+     - Windows: [Docker Desktop](https://www.docker.com/products/docker-desktop)  
+     - MacOS: [Docker Desktop](https://www.docker.com/products/docker-desktop)  
+     - Linux:  
+       ```bash  
+       sudo apt-get update  
+       sudo apt-get install docker-ce docker-ce-cli containerd.io  
+       ```  
+
+2. **Menjalankan Metabase dengan Docker**  
+   - Jalankan perintah berikut untuk menarik dan menjalankan Metabase:  
+     ```bash  
+     docker pull metabase/metabase:v0.46.4  
+     docker run -p 3000:3000 --name metabase metabase/metabase  
+     ```  
+   - Akses Metabase di browser melalui: [http://localhost:3000/setup](http://localhost:3000/setup)
+  
+3. **Supabase Database Connection**
+   - Buat akun di Supabase dan buat proyek baru.
+   - Catat Database URL, Username, dan Password dari project settings.
+   - Pastikan Supabase database Anda sudah di-seed dengan data yang relevan.
+
+3. **Instalasi Python dan Library Pendukung**  
+   - Pastikan Python 3.8 atau lebih baru telah terinstal di komputer Anda.  
+   - Instal library yang dibutuhkan menggunakan pip:  
+     ```bash  
+     pip install pandas numpy scikit-learn matplotlib seaborn joblib tabulate  
+     ```
+4. **Integrasi Metabase dengan Supabase**
+   - Di Metabase, tambahkan data source baru dan pilih PostgreSQL.
+   - Masukkan informasi dari Supabase (host, port, database name, username, dan password).
+   - Uji koneksi sebelum melanjutkan.
+  
+5. **Informasi Login Metabase**
+   - Email: evelinsitanggang@gmail.com
+   - Password: Batudewa22_
+
+---
 
 ## Business Dashboard
 
@@ -96,81 +141,82 @@ Dengan langkah-langkah ini, Jaya Jaya Maju dapat mengatasi permasalahan bisnis y
 
 ## Implementasi Model
 
-Berikut adalah langkah-langkah untuk melakukan prediksi berdasarkan model yang sudah dibuat sebelumnya:
+Berikut langkah-langkah sederhana yang bisa diikuti oleh pihak HRD untuk memprediksi tingkat attrition karyawan menggunakan model ini:
 
-### 1. **Membaca Model yang Sudah Dilatih**
-   - **Kode**: 
-     ```python
-     model = joblib.load('/content/random_forest.joblib')
-     ``` 
-     Model machine learning yang sudah dilatih sebelumnya (dalam format `.joblib`) dimuat agar dapat digunakan untuk melakukan prediksi.
+### **Langkah-Langkah Penggunaan Model Prediksi untuk HRD**
 
-### 2. **Membaca Dataset**
-   - **Kode**: 
-     ```python
-     data = pd.read_csv('/content/predict.csv')
+1. **Persiapkan File Data Karyawan**
+   - File Excel atau CSV yang berisi data karyawan yang ingin diprediksi.
+   - Pastikan data memiliki kolom berikut:
+     - **EmployeeId**: ID unik karyawan.
+     - **BusinessTravel**, **Department**, **Education**, **EducationField**, dan kolom lainnya yang relevan sesuai format.
+   - Simpan file dengan nama, misalnya `karyawan_predict.csv`.
+
+2. **Persiapkan Environment Kerja**
+   - Siapkan komputer dengan Python 3.7+ terinstal. Jika Python belum terpasang, download di [python.org](https://www.python.org/).
+   - Pastikan Anda memiliki akses ke folder kerja yang berisi:
+     - File **`predict_attrition.py`** (script prediksi).
+     - File **`random_forest.joblib`** (model prediksi).
+
+3. **Install Aplikasi Pendukung**
+   - Buka aplikasi **Command Prompt (CMD)** atau **Terminal**.
+   - Masuk ke folder kerja Anda:
+     ```bash
+     cd path/to/folder_kerja
      ```
-     Dataset yang akan diprediksi dibaca dari file CSV menggunakan Pandas.
-
-### 3. **Mengencode Kolom Kategorikal**
-   - **Kode**:
-     ```python
-     for col in categorical_columns:
-         if col in data.columns:
-             data[col] = label_encoder.fit_transform(data[col])
+   - Install library Python yang diperlukan dengan perintah:
+     ```bash
+     pip install pandas scikit-learn tabulate joblib
      ```
-     - Kolom-kolom yang berisi data kategorikal (seperti teks) dikonversi menjadi angka menggunakan **`LabelEncoder`**.
-     - **Tujuan**: Agar data kategorikal dapat diproses oleh model machine learning.
 
-### 4. **Melakukan Scaling pada Kolom Numerik**
-   - **Kode**:
-     ```python
-     numeric_columns = data.select_dtypes(include=['float64', 'int64']).columns
-     data_scaled[numeric_columns] = scaler.fit_transform(data[numeric_columns])
+4. **Jalankan Proses Prediksi**
+   - Masih di terminal, jalankan script prediksi:
+     ```bash
+     python predict_attrition.py
      ```
-     - Kolom numerik diambil dari dataset.
-     - Nilai pada kolom numerik diskalakan menggunakan **`MinMaxScaler`** untuk memastikan bahwa semua fitur berada dalam rentang 0 hingga 1.
-     - **Tujuan**: Mengoptimalkan performa model dengan data yang terstandarisasi.
-
-### 5. **Menghapus Kolom yang Tidak Diperlukan**
-   - **Kode**:
-     ```python
-     if 'Attrition_Prediction' in data_scaled.columns:
-         data_scaled = data_scaled.drop(columns=['Attrition_Prediction'])
+   - Script akan meminta path file data karyawan yang ingin diprediksi. Ketik nama file atau path lengkap, misalnya:
      ```
-     - Jika ada kolom tambahan seperti `Attrition_Prediction`, kolom tersebut dihapus karena tidak digunakan saat model dilatih.
-
-### 6. **Melakukan Prediksi**
-   - **Kode**:
-     ```python
-     predictions = model.predict(data_scaled)
+     Masukkan path file CSV: karyawan_predict.csv
      ```
-     - Dataset yang sudah di-encode dan diskalakan digunakan untuk memprediksi hasil dengan model machine learning yang telah dilatih.
-     - **Output**: Prediksi berupa angka (1 untuk "Attrition" atau 0 untuk "No Attrition").
+   - Hasil prediksi akan ditampilkan langsung di terminal dalam format tabel. Contoh:
+     
+      |  | EmployeeId | Attrition_Prediction|
+      |--|------------|---------------------|
+      |0 |          2 | No                  |
+      |1 |          7 | No                  |
+      |2 |          8 | No                  |
+      |3 |         12 | No                  |
+      |4 |        290 | No                  |
+      |5 |        409 | Yes                 |
+   
 
-### 7. **Menambahkan Kolom Hasil Prediksi**
-   - **Kode**:
-     ```python
-     data['Attrition_Prediction'] = ['Yes' if pred == 1 else 'No' for pred in predictions]
-     ```
-     - Kolom baru ditambahkan ke dataset asli, menunjukkan hasil prediksi dalam bentuk teks **`Yes`** (Attrition) atau **`No`** (Tidak Attrition).
+5. **Simpan Hasil Prediksi**
+   - Hasil prediksi akan otomatis disimpan dalam file `result_predictions.csv` di folder yang sama.
+   - File ini dapat dibuka menggunakan aplikasi seperti Microsoft Excel untuk analisis lebih lanjut.
 
-### 8. **Menampilkan Hasil Prediksi**
-   - **Kode**:
-     ```python
-     result = data[['EmployeeId', 'Attrition_Prediction']]
-     print(tabulate(result, headers='keys', tablefmt='fancy_grid'))
-     ```
-     - Menampilkan hanya **EmployeeId** dan hasil prediksi dalam tabel menggunakan library **`tabulate`**.
-     - **Tujuan**: Memberikan tampilan yang mudah dipahami.
+6. **Gunakan Data Hasil Prediksi**
+   - **EmployeeId** akan menunjukkan ID karyawan.
+   - **Attrition_Prediction** akan menunjukkan prediksi apakah karyawan berpotensi keluar:
+     - `Yes`: Karyawan berpotensi keluar.
+     - `No`: Karyawan tidak berpotensi keluar.
 
-   Tabel dibawah ini menunjukkan hasil prediksinya :
+---
 
-   |  | EmployeeId | Attrition_Prediction|
-   |--|------------|---------------------|
-   |0 |          2 | No                  |
-   |1 |          7 | No                  |
-   |2 |          8 | No                  |
-   |3 |         12 | No                  |
-   |4 |        290 | No                  |
-   |5 |        409 | Yes                 |
+### **Contoh Workflow untuk HRD**
+1. **Menyiapkan Data**:
+   - HRD membuat file Excel bernama `karyawan_predict.csv` dengan data karyawan.
+   
+2. **Menjalankan Prediksi**:
+   - Buka terminal dan jalankan perintah prediksi sesuai langkah di atas.
+
+3. **Menganalisis Hasil**:
+   - Buka file hasil prediksi `result_predictions.csv`.
+   - Gunakan hasil untuk menentukan tindakan seperti:
+     - Memberikan pelatihan.
+     - Melakukan wawancara internal untuk mengatasi ketidakpuasan.
+
+---
+
+Jika ada kendala dalam proses ini, HRD dapat menghubungi tim IT atau pengembang untuk bantuan lebih lanjut.
+
+
