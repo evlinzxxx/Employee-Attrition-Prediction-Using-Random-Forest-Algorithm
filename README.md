@@ -93,3 +93,84 @@ Dashboard ini menyajikan data utama terkait karyawan perusahaan Jaya Jaya Maju:
 Dengan langkah-langkah ini, Jaya Jaya Maju dapat mengatasi permasalahan bisnis yang ada dan meningkatkan kinerja serta kesejahteraan karyawan secara menyeluruh.
 
 --- 
+
+## Implementasi Model
+
+Berikut adalah langkah-langkah untuk melakukan prediksi berdasarkan model yang sudah dibuat sebelumnya:
+
+### 1. **Membaca Model yang Sudah Dilatih**
+   - **Kode**: 
+     ```python
+     model = joblib.load('/content/random_forest.joblib')
+     ``` 
+     Model machine learning yang sudah dilatih sebelumnya (dalam format `.joblib`) dimuat agar dapat digunakan untuk melakukan prediksi.
+
+### 2. **Membaca Dataset**
+   - **Kode**: 
+     ```python
+     data = pd.read_csv('/content/predict.csv')
+     ```
+     Dataset yang akan diprediksi dibaca dari file CSV menggunakan Pandas.
+
+### 3. **Mengencode Kolom Kategorikal**
+   - **Kode**:
+     ```python
+     for col in categorical_columns:
+         if col in data.columns:
+             data[col] = label_encoder.fit_transform(data[col])
+     ```
+     - Kolom-kolom yang berisi data kategorikal (seperti teks) dikonversi menjadi angka menggunakan **`LabelEncoder`**.
+     - **Tujuan**: Agar data kategorikal dapat diproses oleh model machine learning.
+
+### 4. **Melakukan Scaling pada Kolom Numerik**
+   - **Kode**:
+     ```python
+     numeric_columns = data.select_dtypes(include=['float64', 'int64']).columns
+     data_scaled[numeric_columns] = scaler.fit_transform(data[numeric_columns])
+     ```
+     - Kolom numerik diambil dari dataset.
+     - Nilai pada kolom numerik diskalakan menggunakan **`MinMaxScaler`** untuk memastikan bahwa semua fitur berada dalam rentang 0 hingga 1.
+     - **Tujuan**: Mengoptimalkan performa model dengan data yang terstandarisasi.
+
+### 5. **Menghapus Kolom yang Tidak Diperlukan**
+   - **Kode**:
+     ```python
+     if 'Attrition_Prediction' in data_scaled.columns:
+         data_scaled = data_scaled.drop(columns=['Attrition_Prediction'])
+     ```
+     - Jika ada kolom tambahan seperti `Attrition_Prediction`, kolom tersebut dihapus karena tidak digunakan saat model dilatih.
+
+### 6. **Melakukan Prediksi**
+   - **Kode**:
+     ```python
+     predictions = model.predict(data_scaled)
+     ```
+     - Dataset yang sudah di-encode dan diskalakan digunakan untuk memprediksi hasil dengan model machine learning yang telah dilatih.
+     - **Output**: Prediksi berupa angka (1 untuk "Attrition" atau 0 untuk "No Attrition").
+
+### 7. **Menambahkan Kolom Hasil Prediksi**
+   - **Kode**:
+     ```python
+     data['Attrition_Prediction'] = ['Yes' if pred == 1 else 'No' for pred in predictions]
+     ```
+     - Kolom baru ditambahkan ke dataset asli, menunjukkan hasil prediksi dalam bentuk teks **`Yes`** (Attrition) atau **`No`** (Tidak Attrition).
+
+### 8. **Menampilkan Hasil Prediksi**
+   - **Kode**:
+     ```python
+     result = data[['EmployeeId', 'Attrition_Prediction']]
+     print(tabulate(result, headers='keys', tablefmt='fancy_grid'))
+     ```
+     - Menampilkan hanya **EmployeeId** dan hasil prediksi dalam tabel menggunakan library **`tabulate`**.
+     - **Tujuan**: Memberikan tampilan yang mudah dipahami.
+
+   Tabel dibawah ini menunjukkan hasil prediksinya :
+
+   |  | EmployeeId | Attrition_Prediction|
+   |--|------------|---------------------|
+   |0 |          2 | No                  |
+   |1 |          7 | No                  |
+   |2 |          8 | No                  |
+   |3 |         12 | No                  |
+   |4 |        290 | No                  |
+   |5 |        409 | Yes                 |
