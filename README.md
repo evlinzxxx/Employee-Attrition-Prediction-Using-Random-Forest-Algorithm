@@ -1,4 +1,4 @@
-## Predicting Employee Attrition with Random Forest
+## Employee Attrition Prediction Using Random Forest Algorithm
 
 ### **Business Understanding**
 
