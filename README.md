@@ -1,8 +1,4 @@
-## **Proyek Akhir: Analisis Data Karyawan**
-
-by: Evlin Sitanggang
-
----
+## Predicting Employee Attrition with Random Forest
 
 ### **Business Understanding**
 
@@ -30,7 +26,8 @@ Jaya Jaya Maju adalah perusahaan besar dengan lebih dari 1.000 karyawan di berba
 
 ## Persiapan  
 ### **Sumber data**  
-https://github.com/dicodingacademy/dicoding_dataset/tree/main/employee  
+Dataset :
+[Jaya Jaya Maju Dataset](https://github.com/dicodingacademy/dicoding_dataset/tree/main/employee)  
 
 ### **Setup Environment**  
 
@@ -215,8 +212,5 @@ Berikut langkah-langkah sederhana yang bisa diikuti oleh pihak HRD untuk mempred
      - Memberikan pelatihan.
      - Melakukan wawancara internal untuk mengatasi ketidakpuasan.
 
----
 
-Jika ada kendala dalam proses ini, HRD dapat menghubungi tim IT atau pengembang untuk bantuan lebih lanjut.
-
-
+##### Proyek 1 Belajar Penerapan Data Science
