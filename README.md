@@ -75,6 +75,8 @@ Dataset :
 
 Dashboard ini menyajikan data utama terkait karyawan perusahaan Jaya Jaya Maju:
 
+![Dashboard Preview](evlinzxxx-dashboard.png)
+
 ### **KPI Utama**
 - **Total Karyawan:** 1,058 orang.
 - **Rata-rata Gaji Karyawan:** 6,625.95 USD.
